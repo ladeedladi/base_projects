@@ -1,0 +1,33 @@
+const mysql=require('mysql2')
+
+const pool=mysql.createPool({
+    host:'localhost',
+    user:'root',
+    database:'user-details',
+    password:'Ladeed@123'
+    
+
+});
+module.exports=pool.promise();
+const db=require('../util/database')
+
+const path=require('path');
+
+
+
+
+module.exports=class User{
+    constructor(id,name,mailid,phonenumber,password){
+        this.id=id;
+        this.name=name;
+        this.mailid=mailid;
+        this.phonenumber=phonenumber;
+        this.password=password;
+    }
+     insert(){
+        
+       return db.execute('INSERT INTO details(name,mailid,phonenumber,password) VALUES (?,?,?,?)',
+        [this.name,this.mailid,this.phonenumber,this.password]);
+        
+    }
+}
